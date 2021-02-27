@@ -1,0 +1,27 @@
+name: Cleaner
+
+on:
+  workflow_dispatch:
+  schedule: 
+    - cron: '0 16 * * *' 
+
+jobs:
+
+  delete-artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete artifacts
+        uses: kolpav/purge-artifacts-action@v1
+        with:
+          token: ${{ secrets.TOKEN }}
+          expire-in: 3days
+
+  delete-workflow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete workflow
+        uses: Mattraks/delete-workflow-runs@main
+        with:
+          token: ${{ secrets.TOKEN }}
+          repository: ${{ github.repository }}
+          retain_days: 3
