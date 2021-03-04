@@ -54,11 +54,11 @@ Co-authored-by: gzelvis <gzelvis@gmail.com>
 +		};
 +		opp06 {
 +			opp-hz = /bits/ 64 <1608000000>;
-+			opp-microvolt = <1200000>;
++			opp-microvolt = <1225000>;
 +		};
 +		opp07 {
 +			opp-hz = /bits/ 64 <1800000000>;
-+			opp-microvolt = <1250000>;
++			opp-microvolt = <1275000>;
 +		};
 +	};
 +
@@ -97,7 +97,7 @@ Co-authored-by: gzelvis <gzelvis@gmail.com>
 +		};
 +		opp07 {
 +			opp-hz = /bits/ 64 <1800000000>;
-+			opp-microvolt = <1175000>;
++			opp-microvolt = <1200000>;
 +		};
 +		opp08 {
 +			opp-hz = /bits/ 64 <2016000000>;
@@ -105,7 +105,7 @@ Co-authored-by: gzelvis <gzelvis@gmail.com>
 +		};
 +		opp09 {
 +			opp-hz = /bits/ 64 <2208000000>;
-+			opp-microvolt = <1300000>;
++			opp-microvolt = <1325000>;
 +		};
 +	};
 +
@@ -174,7 +174,6 @@ Co-authored-by: gzelvis <gzelvis@gmail.com>
  #include "rk3399.dtsi"
 -#include "rk3399-opp.dtsi"
 +#include "rk3399-nanopi4-opp.dtsi"
- 
+
  / {
  	chosen {
-
