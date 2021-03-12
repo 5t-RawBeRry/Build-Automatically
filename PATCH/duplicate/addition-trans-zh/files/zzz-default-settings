@@ -18,7 +18,6 @@ uci commit system
 #uci commit system
 
 #feed
-sed -i '/natelol\|freifunk/d' /etc/opkg/distfeeds.conf
 sed -i 's,21.02,21.02-SNAPSHOT,g' /etc/opkg/distfeeds.conf
 sed -i 's,downloads.openwrt.org,mirror.sjtu.edu.cn/openwrt,g' /etc/opkg/distfeeds.conf
 
@@ -30,6 +29,7 @@ uci commit uhttpd
 
 #firewall
 uci set firewall.@defaults[0].fullcone='1'
+uci set firewall.@defaults[0].flow_offloading='1'
 uci commit firewall
 
 #upnp
@@ -70,7 +70,34 @@ echo "log-facility=/dev/null" >> /etc/dnsmasq.conf
 #packet_steering
 uci set network.globals.packet_steering='1'
 uci commit network
-/etc/init.d/network restart
+
+#R4S_LED
+uci del system.led_wan.mode
+uci del system.led_lan.mode
+uci del system.@led[-1]
+uci del system.@led[-1]
+uci add system led
+uci set system.@led[-1].name='LAN'
+uci set system.@led[-1].sysfs='nanopi-r4s:green:lan'
+uci set system.@led[-1].trigger='netdev'
+uci set system.@led[-1].dev='eth1'
+uci add_list system.@led[-1].mode='link'
+uci add_list system.@led[-1].mode='tx'
+uci add_list system.@led[-1].mode='rx'
+uci add system led
+uci set system.@led[-1].name='WAN'
+uci set system.@led[-1].sysfs='nanopi-r4s:green:wan'
+uci set system.@led[-1].trigger='netdev'
+uci set system.@led[-1].dev='eth0'
+uci add_list system.@led[-1].mode='link'
+uci add_list system.@led[-1].mode='tx'
+uci commit
+
+#R4S_LANWAN
+uci set network.wan.ifname='eth0'
+uci set network.lan.ifname='eth1'
+uci del network.wan6
+uci commit network
 
 #SSRP
 uci set shadowsocksr.@global[0].gfwlist_url='https://cdn.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/gfw.txt'
