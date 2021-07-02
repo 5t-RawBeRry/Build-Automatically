@@ -71,6 +71,9 @@ sed -i -e 's/^\(.\).*vermagic$/\1cp $(TOPDIR)\/.vermagic $(LINUX_DIR)\/.vermagic
 # 预配置一些插件
 cp -rf ../PATCH/files ./files
 
+# Gateway Address
+sed -i 's/192.168.1.1/192.168.5.1/g' package/base-files/files/bin/config_generate
+
 chmod -R 755 ./
 find ./ -name *.orig | xargs rm -f
 find ./ -name *.rej | xargs rm -f
